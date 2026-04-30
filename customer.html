@@ -22,14 +22,14 @@
             background: #430000;
         }
 
-        /* Navbar - Dark Brown gradient */
+        /* Navbar   */
         #navbar {
             z-index: 1050;
             height: 56px;
             background: linear-gradient(90deg, var(--dark-brown), var(--light-brown)) !important;
         }
 
-        /* Sidebar - Light Brown to Dark Brown */
+        /* Sidebar  */
         #sidebar {
             top: 56px;
             left: 0;
@@ -52,7 +52,7 @@
             color: #ffffff !important;
         }
 
-        /* Content area - Light Blue */
+        /* Content area  */
         #content {
             margin-top: 56px;
             margin-left: 220px;
@@ -61,28 +61,15 @@
 
         }
 
-        /* Form card style */
+        /*   card */
         #content form {
-            background: #ffffff;
+            background: #f9fafb;
             padding: 2rem;
             border-radius: 12px;
             box-shadow: 0 2px 16px rgba(78,42,14,0.13);
         }
 
-        /* Table header */
-        .table thead {
-            background-color: var(--dark-brown) !important;
-        }
 
-        .table thead th {
-            color: #fff !important;
-        }
-
-        .logo {
-            width: 80px;
-            margin: 1rem auto;
-            display: block;
-        }
 
         /* Clickable table rows */
         #customer_tbody tr {
@@ -110,7 +97,7 @@
     </nav>
 </header>
 
-<!-- FIX 5: Sidebar is outside <main>, placed correctly as a sibling to #content -->
+<!--   Sidebar  -->
 <aside id="sidebar" class="position-fixed bg-primary-subtle">
     <ul class="navbar-nav flex-column pe-2 pt-2">
         <img src="assets/logo.png">
@@ -128,7 +115,7 @@
 
 <section id="content">
 
-    <!-- FIX 6: Alert box for messages -->
+    <!--     box   -->
     <div id="alert_box" class="alert d-none" role="alert"></div>
 
     <form class="w-75 m-auto">

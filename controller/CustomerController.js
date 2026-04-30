@@ -6,7 +6,7 @@ let customers = [];
 let nextId = 1;
 let selectedCustomerId = null;
 
-// ---- Helper: Show Alert ----
+// ----   Show Alert ----
 function showAlert(message, type = 'success') {
     const box = $('#alert_box');
     box.removeClass('d-none alert-success alert-danger alert-warning');
@@ -15,7 +15,7 @@ function showAlert(message, type = 'success') {
     setTimeout(() => box.addClass('d-none'), 3000);
 }
 
-// ---- Helper: Validate Form ----
+// ----   Validate Form ----
 function validateForm() {
     const name = $('#customer_name_input').val().trim();
     const nic  = $('#customer_nic_input').val().trim();
@@ -29,7 +29,7 @@ function validateForm() {
     return null;
 }
 
-// ---- Helper: Get Form Data ----
+// ----   Get Form Data ----
 function getFormData() {
     return {
         name:    $('#customer_name_input').val().trim(),
@@ -39,7 +39,7 @@ function getFormData() {
     };
 }
 
-// ---- Helper: Clear Form ----
+// ----   Clear Form ----
 function clearForm() {
     $('#customer_id_input').val('');
     $('#customer_name_input').val('');
@@ -148,5 +148,3 @@ $('#customer_delete_btn').on('click', function() {
 // ---- Reset Button ----
 $('#customer_reset_btn').on('click', clearForm);
 
-// ---- Initial render ----
-renderTable();

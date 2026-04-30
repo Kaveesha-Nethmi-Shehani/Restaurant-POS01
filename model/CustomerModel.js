@@ -53,12 +53,12 @@ const getCustomerData = () => {
     return customer_db;
 }
 
-// --------------------------- Get Customer by Index ---------------------------
+// --------------------------- Get Customer  Index ---------------------------
 const getCustomerDataByIndex = (index) => {
     return customer_db[index];
 }
 
-// --------------------------- Get Customer by Id ---------------------------
+// --------------------------- Get Customer   Id ---------------------------
 const getCustomerDataById = (id) => {
     return student_db.find(item => item.id==id);
 }

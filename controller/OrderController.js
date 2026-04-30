@@ -3,7 +3,7 @@ let customers = [];
 let nextId = 1;
 let selectedOrderId = null;
 
-// ---- Helper: Show Alert ----
+// ----   Show Alert ----
 function showAlert(message, type = 'success') {
     const box = $('#alert_box');
     box.removeClass('d-none alert-success alert-danger alert-warning');
@@ -12,7 +12,7 @@ function showAlert(message, type = 'success') {
     setTimeout(() => box.addClass('d-none'), 3000);
 }
 
-// ---- Helper: Validate Form ----
+// ----  Validate Form ----
 function validateForm() {
     const OrderID = $('#order_id_input').val().trim();
     const CustomerName  = $('#customer_name_input').val().trim();
@@ -27,7 +27,7 @@ function validateForm() {
     return null;
 }
 
-// ---- Helper: Get Form Data ----
+// ----  Get Form Data ----
 function getFormData() {
     return {
        customerName:    $('#customer_name_input').val().trim(),
@@ -37,7 +37,7 @@ function getFormData() {
     };
 }
 
-// ---- Helper: Clear Form ----
+// ----   Clear Form ----
 function clearForm() {
     $('#order_id_input').val('');
     $('#customer_name_input').val('');

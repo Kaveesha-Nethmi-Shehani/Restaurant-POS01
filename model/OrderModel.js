@@ -54,12 +54,12 @@ const getOrderData = () => {
     return order_db;
 }
 
-// --------------------------- Get Order by Index ---------------------------
+// --------------------------- Get Order   Index ---------------------------
 const getOrderDataByIndex = (index) => {
     return order_db[index];
 }
 
-// --------------------------- Get Customer by Id ---------------------------
+// --------------------------- Get Customer   Id ---------------------------
 const getOrderDataById = (id) => {
     return order_db.find(item => item.id==id);
 }
