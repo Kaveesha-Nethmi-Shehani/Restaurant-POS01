@@ -126,6 +126,30 @@ $('#customer_update_btn').on('click', function() {
 });
 
 
+// ---- Delete Button ----
+$('#customer_delete_btn').on('click', function() {
+    if (!selectedCustomerId) { showAlert("Please select a customer row first.", 'warning'); return; }
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This customer will be permanently deleted.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deleteCustomer(selectedCustomerId);
+            renderTable();
+            clearForm();
+            showAlert("Customer deleted.", 'success');
+        }
+    });
+});
+
+
+
 
 
 
