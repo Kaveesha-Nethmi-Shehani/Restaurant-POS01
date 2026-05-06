@@ -3,303 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Restaurant System</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <style>
         :root {
-            --dark-brown:#4E2A0E;
-            --light-brown:#A0632A;
-            --hover: #954201;
+            --dark-brown:  #4E2A0E;
+            --light-brown: #A0632A;
+            --hover-brown: #6B3A14;
         }
 
-        body { background:#430000; }
+        body {
+            margin: 0;
+            padding: 0;
+            background: #430000;
+        }
 
-        /* Navbar */
+        /* Navbar   */
         #navbar {
-            height:56px;
-            background:linear-gradient(90deg,var(--dark-brown),var(--light-brown));
+            z-index: 1050;
+            height: 56px;
+            background: linear-gradient(90deg, var(--dark-brown), var(--light-brown)) !important;
         }
 
-        /* Sidebar */
+        /* Sidebar  */
         #sidebar {
-            position:fixed;
-            top:56px;
-            width:220px;
-            height:100vh;
-            background:linear-gradient(180deg,var(--light-brown),var(--dark-brown));
+            top: 56px;
+            left: 0;
+            width: 220px;
+            height: calc(100vh - 56px);
+            z-index: 1040;
+            overflow-y: auto;
+            background: linear-gradient(180deg, var(--light-brown), var(--dark-brown)) !important;
         }
 
         #sidebar .nav-link {
-            color:#f5dfc0 !important;
-            border-radius:6px;
+            color: #f5dfc0 !important;
+            border-radius: 6px;
+            transition: background 0.2s;
+            cursor: pointer;
         }
 
         #sidebar .nav-link:hover,
-        #sidebar .active {
-            background:var(--hover);
-            color:#fff !important;
+        #sidebar .nav-link.active {
+            background-color: var(--hover-brown) !important;
+            color: #ffffff !important;
         }
 
-        /* Content */
+        /* Content area  */
         #content {
-            margin-left:220px;
-            margin-top:56px;
-            padding:2rem;
+            margin-top: 56px;
+            margin-left: 220px;
+            padding: 2rem;
+            min-height: calc(100vh - 56px);
+        }
+
+        /*   card */
+        .card-form {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(78,42,14,0.13);
         }
 
         /* Pages */
         .page { display:none; }
         .active-page { display:block; }
 
-        /* Card */
-        .card-form {
-            background: #ffffff;
-            padding:3rem;
-            border-radius:12px;
-        }
-        .button-group {
-            display: flex;
-            gap: 12px;           /* buttons අතර space */
-            flex-wrap: wrap;     /* small screen වල wrap වෙන්න */
-        }
-
-        /* common button style */
-        .button-group .btn {
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        /* hover effect */
-        .button-group .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-
-
-        /* Place Order */
-        #place_order_btn {
-            background: linear-gradient(to right, rgba(246, 99, 99, 0.5), rgba(35, 0, 0, 0.5));
-            border: none;
-        }
-
-        /* Update */
-        #Update_order_btn {
-            background: linear-gradient(to right, rgba(246, 99, 99, 0.5), rgb(250, 246, 3));
-            color: #000;
-            border: none;
-        }
-
-        /* Delete */
-        #Delete_order_btn {
-            background: linear-gradient(to right, rgba(248, 3, 3, 0.5), rgb(248, 106, 4));
-            border: none;
-        }
-
-        /* Reset */
-        #place_reset_btn {
-            background: linear-gradient(to right, rgba(244, 42, 42, 0.5), rgb(71, 153, 239));
-            border: none;
-        }
-
-
-
-        /* Item */
-        #item_save_btn {
-            background: linear-gradient(to right, rgba(246, 99, 99, 0.5), rgba(35, 0, 0, 0.5));
-            border: none;
-        }
-
-        /* Update */
-        #item_update_btn {
-            background: linear-gradient(to right, rgba(246, 99, 99, 0.5), rgb(250, 246, 3));
-            color: #000;
-            border: none;
-        }
-
-        /* Delete */
-        #item_delete_btn{
-            background: linear-gradient(to right, rgba(248, 3, 3, 0.5), rgb(248, 106, 4));
-            border: none;
-        }
-
-        /* Reset */
-        #item_reset_btn {
-            background: linear-gradient(to right, rgba(244, 42, 42, 0.5), rgb(71, 153, 239));
-            border: none;
-        }
-
-
-        /* Customer */
-        #customer_save_btn {
-            background: linear-gradient(to right, rgba(246, 99, 99, 0.5), rgba(35, 0, 0, 0.5));
-            border: none;
-        }
-
-        /* Update */
-        #customer_update_btn {
-            background: linear-gradient(to right, rgba(246, 99, 99, 0.5), rgb(250, 246, 3));
-            color: #000;
-            border: none;
-        }
-
-        /* Delete */
-        #customer_delete_btn{
-            background: linear-gradient(to right, rgba(248, 3, 3, 0.5), rgb(248, 106, 4));
-            border: none;
-        }
-
-        /* Reset */
-        #customer_reset_btn {
-            background: linear-gradient(to right, rgba(244, 42, 42, 0.5), rgb(71, 153, 239));
-            border: none;
-        }
-
-
+        /* Clickable table rows */
+        tbody tr { cursor: pointer; }
+        tbody tr:hover { background-color: #bfdbfe !important; }
+        tbody tr.selected-row { background-color: #93c5fd !important; }
     </style>
 </head>
-
 <body>
 
-<!-- Navbar -->
-<nav id="navbar" class="navbar fixed-top">
-    <div class="container-fluid">
-        <span class="navbar-brand text-white fw-bold">🍽 Restaurant System</span>
-    </div>
-</nav>
+<header>
+    <nav id="navbar" class="navbar navbar-expand-lg bg-primary position-fixed w-100 top-0">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white fw-bold" href="#">🍽 Restaurant System</a>
+        </div>
+    </nav>
+</header>
 
-<!-- Sidebar -->
-<aside id="sidebar">
-    <ul class="nav flex-column p-2">
-        <img src="assets/logo.png">
-        <li class="nav-item">
-            <a class="nav-link active" onclick="showPage('customerPage')">Customer</a>
+<!--   Sidebar  -->
+<aside id="sidebar" class="position-fixed bg-primary-subtle">
+    <ul class="navbar-nav flex-column pe-2 pt-2">
+        <img src="assets/logo.png" class="img-fluid p-3">
+        <li class="nav-item m-2">
+            <a class="nav-link fw-semibold active" onclick="showPage('customerPage')">Customer Management</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" onclick="showPage('itemPage')">Item</a>
+        <li class="nav-item m-2">
+            <a class="nav-link" onclick="showPage('itemPage')">Item Management</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item m-2">
             <a class="nav-link" onclick="showPage('orderPage')">Place Order</a>
+        </li>
+        <li class="nav-item m-2">
+            <a class="nav-link" onclick="showPage('orderDetailsPage')">Order Details</a>
         </li>
     </ul>
 </aside>
 
-<!-- Content -->
 <section id="content">
+
+    <!-- Global Alert Box -->
+    <div id="alert_box" class="alert d-none" role="alert"></div>
 
     <!-- ================= CUSTOMER ================= -->
     <div id="customerPage" class="page active-page">
+        <form class="card-form w-75 m-auto">
+            <h1 class="text-center mb-4">Customer Management</h1>
+            <div class="mb-3">
+                <label for="customer_id_input" class="form-label">ID</label>
+                <input type="number" class="form-control" id="customer_id_input" placeholder="Auto-generated" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="customer_name_input" class="form-label">Name</label>
+                <input type="text" class="form-control" id="customer_name_input" placeholder="Enter full name">
+            </div>
+            <div class="mb-3">
+                <label for="customer_nic_input" class="form-label">NIC</label>
+                <input type="text" class="form-control" id="customer_nic_input" placeholder="Enter NIC number">
+            </div>
+            <div class="mb-3">
+                <label for="customer_phone_input" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="customer_phone_input" placeholder="Enter 10-digit phone">
+            </div>
+            <div class="mb-3">
+                <label for="customer_address_input" class="form-label">Address</label>
+                <textarea class="form-control" id="customer_address_input" style="height: 100px" placeholder="Enter address"></textarea>
+            </div>
+            <div class="text-end">
+                <button type="button" id="customer_save_btn" class="btn btn-success">Save</button>
+                <button type="button" id="customer_update_btn" class="btn btn-primary">Update</button>
+                <button type="button" id="customer_delete_btn" class="btn btn-danger">Delete</button>
+                <button type="button" id="customer_reset_btn" class="btn btn-info text-white">Reset</button>
+            </div>
+        </form>
 
-        <div class="card-form w-75 m-auto">
-            <h3 class="text-center mb-3">Customer Management</h3>
-
-            <input id="customer_name_input" class="form-control mb-2" placeholder="Name">
-            <input id="customer_nic_input" class="form-control mb-2" placeholder="NIC">
-            <input id="customer_phone_input" class="form-control mb-2" placeholder="Phone">
-            <textarea id="customer_address_input" class="form-control mb-2" placeholder="Address"></textarea>
-
-            <button id="customer_save_btn" class="btn btn-success">Save</button>
-            <button id="customer_update_btn" class="btn btn-success">Update</button>
-            <button id="customer_delete_btn" class="btn btn-success">Delete</button>
-            <button id="customer_reset_btn" class="btn btn-success">Reset</button>
-        </div>
-
-        <table class="table mt-4">
-            <thead class="table-dark">
-            <tr><th>Name</th><th>Phone</th></tr>
+        <table class="table table-light table-striped mt-5">
+            <thead class="table-primary">
+            <tr>
+                <th scope="col">#ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">NIC</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+            </tr>
             </thead>
             <tbody id="customer_tbody"></tbody>
         </table>
-
     </div>
 
     <!-- ================= ITEM ================= -->
     <div id="itemPage" class="page">
+        <form class="card-form w-75 m-auto">
+            <h1 class="text-center mb-4">Item Management</h1>
+            <div class="mb-3">
+                <label for="item_id_input" class="form-label">ID</label>
+                <input type="number" class="form-control" id="item_id_input" placeholder="Auto-generated" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="item_name_input" class="form-label">Food Name</label>
+                <input type="text" class="form-control" id="item_name_input" placeholder="Enter food name">
+            </div>
+            <div class="mb-3">
+                <label for="item_category_input" class="form-label">Category</label>
+                <select class="form-select" id="item_category_input">
+                    <option value="">Select Category</option>
+                    <option value="food">Food</option>
+                    <option value="drinks">Drinks</option>
+                    <option value="dessert">Dessert</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="item_nic_input" class="form-label">Ingredient</label>
+                <input type="text" class="form-control" id="item_nic_input" placeholder="Enter Ingredients">
+            </div>
+            <div class="mb-3">
+                <label for="item_price_input" class="form-label">Price</label>
+                <input type="number" class="form-control" id="item_price_input" placeholder="Enter Price">
+            </div>
+            <div class="mb-3">
+                <label for="item_qty_input" class="form-label">Qty</label>
+                <input type="number" class="form-control" id="item_qty_input" placeholder="Enter Quantity">
+            </div>
 
-        <div class="card-form w-75 m-auto">
-            <h3 class="text-center mb-3">Item Management</h3>
+            <div class="text-end">
+                <button type="button" id="item_save_btn" class="btn btn-success">Save</button>
+                <button type="button" id="item_update_btn" class="btn btn-primary">Update</button>
+                <button type="button" id="item_delete_btn" class="btn btn-danger">Delete</button>
+                <button type="button" id="item_reset_btn" class="btn btn-info text-white">Reset</button>
+            </div>
+        </form>
 
-            <input id="item_name_input" class="form-control mb-2" placeholder="Item Name">
-
-            <select id="item_category_input" class="form-select mb-2">
-                <option value="">Select Category</option>
-                <option value="food">Food</option>
-                <option value="drinks">Drinks</option>
-                <option value="dessert">Dessert</option>
-            </select>
-
-            <input id="item_price_input" class="form-control mb-2" placeholder="Price">
-
-            <button id="item_save_btn" class="btn btn-success">Save</button>
-            <button id="item_update_btn" class="btn btn-success">Update</button>
-            <button id="item_delete_btn" class="btn btn-success">Delete</button>
-            <button id="item_reset_btn" class="btn btn-success">Reset</button>
-        </div>
-
-        <table class="table mt-4">
-            <thead class="table-dark">
-            <tr><th>Name</th><th>Price</th></tr>
+        <table class="table table-light table-striped mt-5">
+            <thead class="table-primary">
+            <tr>
+                <th scope="col">#ID</th>
+                <th scope="col">Food Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Ingredient</th>
+                <th scope="col">Price</th>
+                <th scope="col">Qty</th>
+            </tr>
             </thead>
             <tbody id="item_tbody"></tbody>
         </table>
-
     </div>
 
     <!-- ================= ORDER ================= -->
     <div id="orderPage" class="page">
-
-        <h3 class="text-center text-white mb-4">🧾 Place Order</h3>
-
-        <div class="row">
-
-            <div class="col-md-4">
-                <div class="card p-3">
-                    <h5>Customer</h5>
-                    <select id="customer_select" class="form-select"></select>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card p-3">
-                    <h5>Item</h5>
-                    <select id="item_select" class="form-select mb-2"></select>
-                    <input id="qty_input" class="form-control mb-2" placeholder="Qty">
-                    <button id="add_to_cart_btn" class="btn btn-success w-100">Add</button>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card p-3">
-                    <h5>Total</h5>
-                    <h3>Rs <span id="total">0</span></h3>
-                    <button id="place_order_btn" class="btn btn-primary w-100">Place Order</button>
-                    <button id="Update_order_btn" class="btn btn-primary w-100">Update Order</button>
-                    <button id="Delete_order_btn" class="btn btn-primary w-100">Delete Order</button>
-                    <button id="place_reset_btn" class="btn btn-primary w-100">Reset Order</button>
-                </div>
-            </div>
-
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-white fw-bold m-0"><i class="bi bi-receipt me-2"></i>Place Order</h1>
+            <span class="badge bg-light text-dark fs-6 px-3 py-2 shadow-sm rounded-pill">Today's Orders</span>
         </div>
 
-        <table class="table mt-4">
-            <thead class="table-dark">
-            <tr><th>Item</th><th>Qty</th><th>Total</th></tr>
-            </thead>
-            <tbody id="cart_tbody"></tbody>
-        </table>
+        <div class="row g-4">
+            <!-- Left Column: Form & Cart -->
+            <div class="col-lg-8">
+                <!-- Selection Card -->
+                <div class="card-form mb-4 border-0 shadow-sm p-4">
+                    <h5 class="fw-bold mb-3 text-primary border-bottom pb-2">Order Details</h5>
 
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small fw-semibold">Select Customer</label>
+                            <select id="customer_select" class="form-select shadow-none border-secondary-subtle bg-light">
+                                <option value="">Select Customer</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small fw-semibold">Select Item</label>
+                            <select id="item_select" class="form-select shadow-none border-secondary-subtle bg-light">
+                                <option value="">Select Item</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 mt-4">
+                            <label class="form-label text-muted small fw-semibold">Price (Rs)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-secondary-subtle text-muted">Rs</span>
+                                <input id="item_price" type="number" class="form-control shadow-none border-secondary-subtle bg-white" placeholder="0.00" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-4">
+                            <label class="form-label text-muted small fw-semibold">Quantity</label>
+                            <input id="item_qty" type="number" class="form-control shadow-none border-secondary-subtle" placeholder="1" min="1">
+                        </div>
+                        <div class="col-md-4 mt-4 d-flex align-items-end">
+                            <button id="add_to_cart_btn" class="btn btn-primary w-100 fw-bold shadow-sm py-2">
+                                <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cart Table Card -->
+                <div class="card-form border-0 shadow-sm p-0 overflow-hidden">
+                    <div class="p-3 bg-light border-bottom d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold m-0 text-dark"><i class="bi bi-cart3 me-2"></i>Shopping Cart</h5>
+                        <span class="badge bg-primary rounded-pill px-3 py-2 shadow-sm" id="cart_item_count">Items</span>
+                    </div>
+                    <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                        <table class="table table-hover table-borderless align-middle mb-0">
+                            <thead class="table-light sticky-top shadow-sm">
+                            <tr>
+                                <th scope="col" class="ps-4 py-3">Item</th>
+                                <th scope="col" class="py-3">Price</th>
+                                <th scope="col" class="py-3">Qty</th>
+                                <th scope="col" class="text-end pe-4 py-3">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody id="cart_tbody">
+                            <!-- Cart items will appear here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Summary -->
+            <div class="col-lg-4">
+                <div class="card-form border-0 shadow-sm position-sticky p-4" style="top: 80px;">
+                    <h5 class="fw-bold mb-4 text-primary border-bottom pb-2">Order Summary</h5>
+
+                    <div class="d-flex justify-content-between mb-3 text-muted fs-6">
+                        <span>Subtotal</span>
+                        <span class="fw-semibold text-dark">Rs <span id="summary_subtotal">0.00</span></span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 text-muted fs-6">
+                        <span>Tax (0%)</span>
+                        <span class="fw-semibold text-dark">Rs 0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-4 text-muted fs-6 border-bottom pb-3">
+                        <span>Discount</span>
+                        <span class="fw-semibold text-success">- Rs 0.00</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-4 align-items-center bg-light p-3 rounded-3 shadow-sm border border-light-subtle">
+                        <span class="fs-5 fw-bold text-dark">Total</span>
+                        <span class="fs-3 fw-bolder text-danger">Rs <span id="total">0.00</span></span>
+                    </div>
+
+                    <button id="place_order_btn" class="btn btn-success btn-lg w-100 fw-bold shadow hover-zoom">
+                        Place Order <i class="bi bi-arrow-right-circle ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ORDER DETAILS ================= -->
+    <div id="orderDetailsPage" class="page">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-white fw-bold m-0"><i class="bi bi-list-check me-2"></i>Order Details</h1>
+            <span class="badge bg-light text-dark fs-6 px-3 py-2 shadow-sm rounded-pill">All Orders</span>
+        </div>
+
+        <div class="card-form border-0 shadow-sm p-0 overflow-hidden mt-4">
+            <div class="p-4 bg-light border-bottom">
+                <h5 class="fw-bold m-0 text-dark">Completed Orders History</h5>
+            </div>
+            <div class="table-responsive p-3">
+                <table class="table table-hover table-striped align-middle mb-0">
+                    <thead class="table-primary">
+                    <tr>
+                        <th scope="col" class="py-3">Order ID</th>
+                        <th scope="col" class="py-3">Date</th>
+                        <th scope="col" class="py-3">Customer ID</th>
+                        <th scope="col" class="py-3">Total Items</th>
+                        <th scope="col" class="py-3">Total Amount (Rs)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="orders_tbody">
+                    <!-- Order rows will appear here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 </section>
 
 <!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     function showPage(pageId){
         $('.page').removeClass('active-page');
@@ -307,6 +359,9 @@
 
         $('#sidebar .nav-link').removeClass('active');
         event.target.classList.add('active');
+
+        // Dispatch an event so controllers know a page changed
+        document.dispatchEvent(new CustomEvent('pageChanged', { detail: pageId }));
     }
 </script>
 
@@ -314,6 +369,7 @@
 <script type="module" src="controller/CustomerController.js"></script>
 <script type="module" src="controller/itemController.js"></script>
 <script type="module" src="controller/placeOrderController.js"></script>
+<script type="module" src="controller/orderDetailsController.js"></script>
 
 </body>
 </html>
