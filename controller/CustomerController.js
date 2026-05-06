@@ -89,5 +89,28 @@ function renderTable() {
     });
 }
 
+// ---- Save Button ----
+$('#customer_save_btn').on('click', function() {
+    const err = validateForm();
+    if (err) { showAlert(err, 'danger'); return; }
+
+    const data = getFormData();
+    const customers = getAllCustomers();
+    const isDuplicate = customers.some(c => c.nic === data.nic || c.phone === data.phone);
+    if (isDuplicate) { showAlert("A customer with this NIC or Phone already exists.", 'warning'); return; }
+
+    saveCustomer({ id: nextId++, ...data });
+    // saveToStorage();
+    renderTable();
+    clearForm();
+    //--Save Notification--//
+    Swal.fire({
+        title: "Save Success",
+        icon: "success",
+        draggable: true
+    });
+});
+
+
 
 
