@@ -1,4 +1,4 @@
-import {items} from '../db/db.js';
+import { saveItem, updateItem, deleteItem, getAllItems } from '../model/ItemModel.js';
 
 // ---- Data Store ----
 let nextId = 1;
@@ -6,11 +6,12 @@ let selectedItemId = null;
 
 // ---- Alert ----
 function showAlert(message, type = 'success') {
-    const box = $('#alert_box');
-    box.removeClass('d-none alert-success alert-danger alert-warning');
-    box.addClass('alert-' + type);
-    box.text(message);
-    setTimeout(() => box.addClass('d-none'), 3000);
+    Swal.fire({
+        icon: type === 'danger' ? 'error' : type,
+        title: message,
+        showConfirmButton: false,
+        timer: 1500
+    });
 }
 
 // ---- Get Form Data ----
@@ -19,7 +20,8 @@ function getFormData() {
         name: $('#item_name_input').val().trim(),
         category: $('#item_category_input').val(),
         ingredient: $('#item_nic_input').val().trim(),
-        qty: $('#item_phone_input').val()
+        price: $('#item_price_input').val(),
+        qty: $('#item_qty_input').val()
     };
 }
 
@@ -29,7 +31,8 @@ function clearForm() {
     $('#item_name_input').val('');
     $('#item_category_input').val('');
     $('#item_nic_input').val('');
-    $('#item_phone_input').val('');
+    $('#item_price_input').val('');
+    $('#item_qty_input').val('');
     selectedItemId = null;
     $('#item_tbody tr').removeClass('selected-row');
 }
@@ -38,6 +41,8 @@ function clearForm() {
 function renderTable() {
     const tbody = $('#item_tbody');
     tbody.empty();
+
+    const items = getAllItems();
 
     if (items.length === 0) {
         tbody.append('<tr><td colspan="5" class="text-center">No items found</td></tr>');
@@ -50,6 +55,7 @@ function renderTable() {
             <td>${item.name}</td>
             <td>${item.category}</td>
             <td>${item.ingredient}</td>
+            <td>${item.price}</td>
             <td>${item.qty}</td>
         </tr>`);
 
@@ -60,7 +66,8 @@ function renderTable() {
             $('#item_name_input').val(item.name);
             $('#item_category_input').val(item.category);
             $('#item_nic_input').val(item.ingredient);
-            $('#item_phone_input').val(item.qty);
+            $('#item_price_input').val(item.price);
+            $('#item_qty_input').val(item.qty);
 
             $('#item_tbody tr').removeClass('selected-row');
             $(this).addClass('selected-row');
@@ -79,7 +86,7 @@ $('#item_save_btn').on('click', function () {
         return;
     }
 
-    items.push({ id: nextId++, ...data });
+    saveItem({ id: nextId++, ...data });
 
     renderTable();
     clearForm();
@@ -96,9 +103,7 @@ $('#item_update_btn').on('click', function () {
 
     const data = getFormData();
 
-    items = items.map(item =>
-        item.id === selectedItemId ? { id: selectedItemId, ...data } : item
-    );
+    updateItem({ id: selectedItemId, ...data });
 
     renderTable();
     clearForm();
@@ -112,7 +117,7 @@ $('#item_delete_btn').on('click', function () {
         return;
     }
 
-    items = items.filter(item => item.id !== selectedItemId);
+    deleteItem(selectedItemId);
 
     renderTable();
     clearForm();
