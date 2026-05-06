@@ -9,7 +9,7 @@ export function getAllCartItems() {
 }
 
 export function clearCart() {
-    cart.length = 0; // Empty the array without reassigning
+    cart.length = 0;
 }
 
 export function saveOrder(order) {
