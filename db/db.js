@@ -1,6 +1,3 @@
-let customer_db = [];
-
-// ------------------------ Course DB ------------------------------
-let order_db = [];
-
-export {customer_db, order_db};
+export let customers = [];
+export let items = [];
+export let cart = [];

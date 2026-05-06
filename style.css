@@ -1,71 +1,52 @@
-/*x`*/
+/* මුළු screen එකම පිරෙන්න පින්තූරය දාන්න */
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('assets/resturent.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+    display: flex;
+    justify-content: center; /* මැදට ගේන්න */
+   align-items: center;
+}
 
-/*body {*/
-/*    background-color: #3a0101;*/
-/*    color: white;*/
-/*    margin: 0;*/
-/*}*/
+/* Login Box එක පින්තූරය උඩ පේන විදිහ */
+.login-box {
+    background: rgba(240, 240, 240, 0); /* වීදුරුවක් වගේ පේන්න (Glassmorphism) */
+    backdrop-filter: blur(2px); /* පින්තූරය පිටුපසින් බොඳ වෙන්න */
+    padding: 90px;
+    border-radius: 20px;
+    text-align: center;
+    border: 2px solid rgba(250, 250, 250, 0.3);
+    width: 350px; /* පෙට්ටියේ පළල */
+}
 
+.login-box h1 {
+    color: white;
+    font-family: "Diwani Letter";
+    font-size: 24px;
+    margin-bottom: 50px;
+}
 
-/*#navbar {*/
-/*    height: 60px;*/
-/*    z-index: 1000;*/
-/*}*/
-
-
-/*#sidebar {*/
-/*    width: 250px;*/
-/*    height: calc(100vh - 60px);*/
-/*    top: 60px;*/
-/*    left: 0;*/
-/*    padding: 20px 0;*/
-/*    background-color: rgba(255, 255, 255, 0.1) !important;*/
-/*    backdrop-filter: blur(10px);*/
-/*    border-right: 1px solid rgba(255, 255, 255, 0.1);*/
-/*}*/
-
-
-/*#sidebar ul {*/
-/*    padding-left: 0 !important;*/
-/*    margin-left: 0 !important;*/
-/*    list-style: none;*/
-/*}*/
-
-/*.nav-item {*/
-/*    width: 100%;*/
-/*    margin: 5px 0 !important;*/
-/*}*/
-
-/*.nav-link {*/
-/*    color: white !important;*/
-/*    padding: 12px 25px !important;*/
-/*    display: block;*/
-/*    transition: 0.3s;*/
-/*    text-decoration: none;*/
-/*}*/
+#LOGIN {
+    background-color: rgba(104, 2, 2, 0.5);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
 
 
-/*.nav-link:hover {*/
-/*    background-color: rgb(248, 106, 4);*/
-/*    color: #faf603 !important;*/
-/*    padding-left: 35px !important;*/
-/*}*/
 
-/*main {*/
-/*    margin-left: 250px;*/
-/*    padding-top: 80px;*/
-/*    padding-right: 20px;*/
-/*}*/
+ }
 
-/*.table {*/
-/*    background: rgba(255, 255, 255, 0.1);*/
-/*    backdrop-filter: blur(10px);*/
-/*    color: white;*/
-/*    border-radius: 10px;*/
-/*    overflow: hidden;*/
-/*}*/
+#LOGIN:hover{
+    background: #430000;
+    transform: translate(-8px);
+    box-shadow: rgb(78, 34, 1) 0px 30px 60px -12px inset, rgb(165, 72, 2) 0px 18px 36px -18px inset;
 
-/*.table th, .table td {*/
-/*    text-align: center;*/
-/*    vertical-align: middle;*/
-/*}*/
+
+}

@@ -1,12 +1,11 @@
-import {addCustomerData, updateCustomerData, deleteCustomerData, getCustomerData, getCustomerDataByIndex, getCustomerDataById} from '../model/CustomerModel.js';
-import {check_nic, check_phone} from '../utils/regex_utils.js';
+import {customers} from '../db/db.js';
 
 // ---- Data Store ----
-let customers = [];
+
 let nextId = 1;
 let selectedCustomerId = null;
 
-// ----   Show Alert ----
+// ---- Helper: Show Alert ----
 function showAlert(message, type = 'success') {
     const box = $('#alert_box');
     box.removeClass('d-none alert-success alert-danger alert-warning');
@@ -15,7 +14,7 @@ function showAlert(message, type = 'success') {
     setTimeout(() => box.addClass('d-none'), 3000);
 }
 
-// ----   Validate Form ----
+// ---- Helper: Validate Form ----
 function validateForm() {
     const name = $('#customer_name_input').val().trim();
     const nic  = $('#customer_nic_input').val().trim();
@@ -23,13 +22,13 @@ function validateForm() {
     const address = $('#customer_address_input').val().trim();
 
     if (!name)  return "Name is required.";
-    if (!nic || !/^[0-9]{10}$/.test(nic))   return "NIC is required.";
+    if (!nic)   return "NIC is required.";
     if (!phone || !/^[0-9]{10}$/.test(phone)) return "Please enter a valid 10-digit phone number.";
     if (!address) return "Address is required.";
     return null;
 }
 
-// ----   Get Form Data ----
+// ---- Helper: Get Form Data ----
 function getFormData() {
     return {
         name:    $('#customer_name_input').val().trim(),
@@ -39,7 +38,7 @@ function getFormData() {
     };
 }
 
-// ----   Clear Form ----
+// ---- Helper: Clear Form ----
 function clearForm() {
     $('#customer_id_input').val('');
     $('#customer_name_input').val('');
@@ -148,3 +147,5 @@ $('#customer_delete_btn').on('click', function() {
 // ---- Reset Button ----
 $('#customer_reset_btn').on('click', clearForm);
 
+// ---- Initial render ----
+renderTable();
