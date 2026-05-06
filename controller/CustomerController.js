@@ -100,7 +100,7 @@ $('#customer_save_btn').on('click', function() {
     if (isDuplicate) { showAlert("A customer with this NIC or Phone already exists.", 'warning'); return; }
 
     saveCustomer({ id: nextId++, ...data });
-    // saveToStorage();
+
     renderTable();
     clearForm();
     //--Save Notification--//
@@ -120,7 +120,6 @@ $('#customer_update_btn').on('click', function() {
 
     const data = getFormData();
     updateCustomer({ id: selectedCustomerId, ...data });
-    // saveToStorage();
     renderTable();
     clearForm();
     showAlert("Customer updated successfully!", 'success');
