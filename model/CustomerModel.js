@@ -10,3 +10,10 @@ export function updateCustomer(updatedCustomer) {
         customers[index] = updatedCustomer;
     }
 }
+
+export function deleteCustomer(id) {
+    const index = customers.findIndex(c => c.id === id);
+    if (index !== -1) {
+        customers.splice(index, 1);
+    }
+}
