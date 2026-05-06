@@ -39,3 +39,16 @@ function getFormData() {
     };
 }
 
+
+// ---- Helper: Clear Form ----
+function clearForm() {
+    $('#customer_id_input').val('');
+    $('#customer_name_input').val('');
+    $('#customer_nic_input').val('');
+    $('#customer_phone_input').val('');
+    $('#customer_address_input').val('');
+    selectedCustomerId = null;
+    $('#customer_tbody tr').removeClass('selected-row');
+}
+
+
