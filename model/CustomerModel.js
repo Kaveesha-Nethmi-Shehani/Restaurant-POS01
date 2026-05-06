@@ -17,3 +17,8 @@ export function deleteCustomer(id) {
         customers.splice(index, 1);
     }
 }
+
+export function getAllCustomers() {
+    return customers;
+}
+
