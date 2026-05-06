@@ -111,6 +111,22 @@ $('#customer_save_btn').on('click', function() {
     });
 });
 
+// ---- Update Button ----
+$('#customer_update_btn').on('click', function() {
+    if (!selectedCustomerId) { showAlert("Please select a customer row first.", 'warning'); return; }
+
+    const err = validateForm();
+    if (err) { showAlert(err, 'danger'); return; }
+
+    const data = getFormData();
+    updateCustomer({ id: selectedCustomerId, ...data });
+    // saveToStorage();
+    renderTable();
+    clearForm();
+    showAlert("Customer updated successfully!", 'success');
+});
+
+
 
 
 
