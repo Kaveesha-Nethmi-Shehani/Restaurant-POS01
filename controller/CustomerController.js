@@ -22,4 +22,10 @@ function validateForm() {
     const phone = $('#customer_phone_input').val().trim();
     const address = $('#customer_address_input').val().trim();
 
+    if (!name)  return "Name is required.";
+    if (!nic)   return "NIC is required.";
+    if (!phone || !/^[0-9]{10}$/.test(phone)) return "Please enter a valid 10-digit phone number.";
+    if (!address) return "Address is required.";
+    return null;
+
 }
