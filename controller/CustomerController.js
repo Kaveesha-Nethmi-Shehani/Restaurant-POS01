@@ -149,6 +149,13 @@ $('#customer_delete_btn').on('click', function() {
 });
 
 
+// ---- Reset Button ----
+$('#customer_reset_btn').on('click', clearForm);
+
+// ---- Initial render ----
+renderTabl();
+
+
 
 
 
