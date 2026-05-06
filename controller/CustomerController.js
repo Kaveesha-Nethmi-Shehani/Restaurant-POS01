@@ -14,3 +14,12 @@ function showAlert(message, type = 'success') {
         timer: 1500
     });
 }
+
+// ---- Helper: Validate Form ----
+function validateForm() {
+    const name = $('#customer_name_input').val().trim();
+    const nic  = $('#customer_nic_input').val().trim();
+    const phone = $('#customer_phone_input').val().trim();
+    const address = $('#customer_address_input').val().trim();
+
+}
