@@ -27,5 +27,15 @@ function validateForm() {
     if (!phone || !/^[0-9]{10}$/.test(phone)) return "Please enter a valid 10-digit phone number.";
     if (!address) return "Address is required.";
     return null;
-
 }
+
+// ---- Helper: Get Form Data ----
+function getFormData() {
+    return {
+        name:    $('#customer_name_input').val().trim(),
+        nic:     $('#customer_nic_input').val().trim(),
+        phone:   $('#customer_phone_input').val().trim(),
+        address: $('#customer_address_input').val().trim()
+    };
+}
+
